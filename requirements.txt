@@ -1,6 +1,8 @@
 # Data Access and Manipulation
 # Official client for GCP BigQuery connectivity
 google-cloud-bigquery
+# Required for BigQuery data type conversion to Pandas
+db-dtypes
 # High-performance data structures and analysis tools
 pandas
 # Fundamental package for scientific computing with Python
