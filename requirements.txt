@@ -1,0 +1,39 @@
+# Data Access and Manipulation
+# Official client for GCP BigQuery connectivity
+google-cloud-bigquery
+# High-performance data structures and analysis tools
+pandas
+# Fundamental package for scientific computing with Python
+numpy
+
+# Machine Learning
+# Essential tools for data mining and machine learning modeling
+scikit-learn
+# Optimized distributed gradient boosting library for performance
+xgboost
+# Microsoft's gradient boosting framework for speed and low memory usage
+lightgbm
+
+# Experiment Tracking and MLOps
+# Open-source platform for managing the end-to-end ML lifecycle
+mlflow
+# Data Version Control: tracking data and models like Git
+dvc
+# Shared standard for data quality and validation
+great-expectations
+
+# Analysis and Visualization
+# Low-level graphing library for static visualizations
+matplotlib
+# Statistical data visualization based on matplotlib
+seaborn
+# Interactive computing environment for exploratory research
+jupyter
+# Jupyter kernel for Python code execution
+ipykernel
+
+# Infrastructure and Environment
+# Reads key-value pairs from .env file for configuration
+python-dotenv
+# Full YAML framework for configuration management
+pyyaml
