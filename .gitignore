@@ -18,24 +18,29 @@ venv/
 !credentials.json.example
 auth/
 
-# Data and Models (MLOps)
-data/
-models/
-mlruns/
+# Data and Models (MLOps) - Anchored to root
+/data/
+/models/
+/mlruns/
 .dvc/
 
-# Documentation Management (Keep Local)
+# Gemini Skills (Keep Local)
+.gemini/
+
+# Local Management (Do Not Commit)
 docs/BACKLOG.md
 docs/GITHUB_ISSUES.md
 docs/ML_PROJECT_HANDOVER.md
 
-# Documentos Permitidos (Arquitectura)
+# Allowed Technical Docs (Commit these)
 docs/*
+!docs/PROJECT_JOURNEY.md
+!docs/endogen/
+!docs/architecture/
+!docs/adr/
 !docs/ARCHITECTURE_DECISIONS_EN.md
 !docs/DATA_PIPELINE_FLOW_EN.md
 !docs/OPERATIONS_GUIDE_EN.md
-!docs/architecture/
-!docs/adr/
 
 # OS generated files
 .DS_Store
