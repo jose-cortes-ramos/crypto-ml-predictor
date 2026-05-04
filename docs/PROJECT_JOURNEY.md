@@ -74,5 +74,23 @@ Although we use tabular models like XGBoost, the problem remains a "Time-Series 
 
 ---
 
-## Current State & Next Steps
-We are currently transitioning from **Exploration** to **Refactoring**. The "Volume Shock" signal is validated, the infrastructure is ready, and we are prepared to integrate **Volatility** and **Bitcoin Dominance** to stabilize model performance.
+## Phase 4: Production Refactoring and Inference Engine (Issue #7)
+**Objective:** Transform experimental scripts into a modular, production-grade prediction system.
+
+### Technologies Used
+*   **Modular Python Architecture:** Decoupled Feature Engineering (FeatureFactory) from execution logic.
+*   **MLflow Search API:** For dynamic "Auto-Discovery" of the most stable trained model.
+*   **Time-Series Alignment:** Implementation of strict chronological sorting to ensure rolling window integrity.
+
+### Why these choices?
+*   **FeatureFactory:** Prevents "Training-Serving Skew" by ensuring both training and prediction use the exact same mathematical logic.
+*   **Stability Score:** Instead of picking the "luckiest" model, we implemented a custom metric (Mean - StdDev) to select the most consistent brain from MLflow.
+
+### Conclusions
+*   The system is now **Functional and Scalable**. It can take raw data from BigQuery and output actionable "Buy/Wait" signals in seconds.
+*   **Data Freshness:** Added a protective layer that warns the user if the prediction is based on stale data, fulfilling the Data Quality requirement.
+
+---
+
+## Final Project Status: Production Ready 🚀
+The Crypto ML Predictor has evolved from a volume-shock hypothesis to a complete MLOps lifecycle. The foundation is set for integrating external macro variables in future iterations.
