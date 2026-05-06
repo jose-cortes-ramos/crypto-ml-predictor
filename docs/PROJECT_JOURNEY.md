@@ -92,5 +92,23 @@ Although we use tabular models like XGBoost, the problem remains a "Time-Series 
 
 ---
 
-## Final Project Status: Production Ready 🚀
-The Crypto ML Predictor has evolved from a volume-shock hypothesis to a complete MLOps lifecycle. The foundation is set for integrating external macro variables in future iterations.
+## Phase 5: ML Deployment and Looker Integration (Issue #5)
+**Objective:** Close the data loop by injecting ML signals back into GCP for visualization.
+
+### Technologies Used
+*   **BigQuery Write API (Pandas-GBQ style):** Enabled bidirectional data flow between the local ML engine and GCP.
+*   **Batch Backfill Logic:** Automated the generation of 1,700+ historical predictions in a single pass.
+*   **Dynamic Champion Selection:** Created `src/utils/mlflow_utils.py` to decouple model IDs from production code.
+
+### Rationale
+*   **WRITE_TRUNCATE Strategy:** Chosen for historical consistency, ensuring Looker always reflects the latest "Champion" model's logic across the entire timeline.
+*   **SQL Join Strategy:** Designed a schema that allows a simple `LEFT JOIN` in Looker between the `Gold` trends and `ML Predictions` tables.
+
+### Conclusions
+*   The project has evolved from a local experiment to a **Full-Stack Data & AI Platform**.
+*   We have successfully demonstrated **End-to-End MLOps**: Ingestion -> Validation -> Training -> Refactoring -> Production Inference -> Cloud Storage.
+
+---
+
+## Final Project Status: Enterprise Grade 🏆
+The Crypto ML Predictor is now a fully integrated component of the GCP Data Ecosystem.

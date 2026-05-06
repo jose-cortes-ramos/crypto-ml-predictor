@@ -35,10 +35,28 @@ class BigQueryConnector:
         query = f"""
             SELECT *
             FROM `{self.project_id}.{self.dataset_id}.{self.table_id}`
-            ORDER BY ds DESC
+            ORDER BY ds ASC
         """
         print(f"Executing query on: {self.project_id}.{self.dataset_id}.{self.table_id}")
         return self.client.query(query).to_dataframe()
+
+    def write_predictions(self, df: pd.DataFrame, table_name: str = "crypto_ml_predictions"):
+        """
+        Writes model predictions to BigQuery Gold dataset.
+        Uses WRITE_TRUNCATE to refresh the historical analysis.
+        """
+        table_ref = f"{self.project_id}.{self.dataset_id}.{table_name}"
+        job_config = bigquery.LoadJobConfig(
+            write_disposition="WRITE_TRUNCATE",
+        )
+        
+        print(f"[+] Uploading {len(df)} prediction records to {table_ref}...")
+        try:
+            job = self.client.load_table_from_dataframe(df, table_ref, job_config=job_config)
+            job.result()  # Wait for completion
+            print(f"[SUCCESS] Data successfully written to BigQuery.")
+        except Exception as e:
+            print(f"[ERROR] Failed to write to BigQuery: {e}")
 
 if __name__ == "__main__":
     # Smoke test for BigQuery connectivity

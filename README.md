@@ -43,8 +43,19 @@ The system consumes processed data from the `analytics_data_gold` dataset in Big
 
 ---
 
-## Getting Started
-1. Clone the repository.
-2. Configure .env with GCP credentials and Project ID.
-3. Install dependencies: pip install -r requirements.txt
-4. Execute the EDA notebook: jupyter notebook notebooks/01_eda_validation.ipynb
+## Usage & Deployment
+To generate real-time market signals based on the latest BigQuery data:
+
+1. **Configure Environment:** Ensure your `.env` file is set and `auth/credentials.json` is present.
+2. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Run Inference:**
+   ```bash
+   python src/models/predict.py
+   ```
+
+## Development Workflow
+- **Validation:** Use `notebooks/01_eda_validation.ipynb` for hypothesis testing.
+- **MLOps:** Training history is logged in `mlruns/`. Use `mlflow ui` to compare experiment performance.
