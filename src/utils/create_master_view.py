@@ -8,8 +8,8 @@ load_dotenv(os.path.join(ROOT_DIR, '.env'))
 
 def create_master_view():
     """
-    Creates the final unified view for Looker Studio.
-    Includes future returns for historical impact analysis.
+    Creates the FINAL unified view for Looker Studio.
+    Joins Trends, Analytics, and ML layers for a 360-degree forensic view.
     """
     project_id = os.getenv('GCP_PROJECT_ID')
     dataset_id = os.getenv('GCP_DATASET_ID')
@@ -24,16 +24,22 @@ def create_master_view():
         t.price,
         t.total_volume,
         t.market_cap_dominance,
+        -- Analytics Layer (The missing piece)
+        a.avg_price_next_7d,
+        a.global_avg_volume,
+        a.global_avg_price,
         -- ML Intelligence Layer
         p.zscore_30d as ml_volume_zscore,
         p.price_vs_ma30 as ml_trend_ratio,
         p.ml_prediction,
         p.ml_probability,
-        -- Historical Impact (The 'Future' Reality for backtesting visuals)
-        -- We calculate the 30-day return using LEAD window function
+        -- Forensic Metrics
         (LEAD(t.price, 30) OVER(PARTITION BY t.id ORDER BY t.ds ASC) - t.price) / t.price as return_t30
     FROM 
         `{project_id}.{dataset_id}.crypto_historical_trends` as t
+    LEFT JOIN 
+        `{project_id}.{dataset_id}.crypto_historical_analytics` as a
+        ON t.id = a.id AND t.ds = a.ds
     LEFT JOIN 
         `{project_id}.{dataset_id}.crypto_ml_predictions` as p
         ON t.id = p.id AND t.ds = p.ds
@@ -42,13 +48,13 @@ def create_master_view():
     view = bigquery.Table(view_id)
     view.view_query = sql
     
-    print(f"REPORT: Updating Master View at {view_id}")
+    print(f"REPORT: Upgrading Master View to TRIPLE-LAYER JOIN at {view_id}")
     try:
         client.delete_table(view_id, not_found_ok=True)
         client.create_table(view)
-        print("RESULT: SUCCESS. View now includes return_t30.")
+        print("RESULT: SUCCESS. The view now integrates Trends, Analytics, and ML.")
     except Exception as e:
-        print(f"RESULT: ERROR. View update failed: {e}")
+        print(f"RESULT: ERROR. View upgrade failed: {e}")
 
 if __name__ == "__main__":
     create_master_view()
